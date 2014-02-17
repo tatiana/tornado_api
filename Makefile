@@ -28,8 +28,13 @@ pep8_tests:
 	@-pep8 $(PROJECT_TEST) --ignore=E501,E126,E127,E128
 
 lint:
+	@# C0103: Invalid name - disabled because it expects any variable outside a class or function to be a constant
+	@# C0301: Line too long
+	@# R0904: Too many public methods - disabled due to Tornado's classes
+	@# W0621: Redefining name %r from outer scope (line %s) - due to main if __name__ == '__main__'
 	@echo "Running pylint"
-	@pylint $(PROJECT_CODE)/$(PROJECT_NAME) --disable=C0301
+	@pylint $(PROJECT_CODE)/$(PROJECT_NAME) --disable=C0301 --disable=R0904 --disable=C0103 --disable=W0621
+
 
 unit: clean pep8 pep8_tests
 	@echo "Running pep8 and unit tests..."

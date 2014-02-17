@@ -1,3 +1,3 @@
 """
-Content-based semantic recommendation API.
+API for recommending news using content-based algorithms.
 """
