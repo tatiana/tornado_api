@@ -1,0 +1,6 @@
+requests==2.2.1
+stomp.py==4.0.11
+ujson==1.33
+
+--extra-index-url=http://pypi.globoi.com/
+--extra-index-url=http://pypi.globoi.com/proxy
