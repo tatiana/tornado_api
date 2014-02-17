@@ -9,17 +9,18 @@ from tornado.ioloop import IOLoop
 from tornado.httpserver import HTTPServer
 
 from lex import settings
-from lex.handlers import HealthcheckHandler
+from lex.handlers import HealthcheckHandler, NewsHandler
 
 
 ROUTES = [
     web.URLSpec(r'/healthcheck/?', HealthcheckHandler),
+    web.URLSpec(r'/recommendation/?', NewsHandler),
 ]
 
 
 class Application(web.Application):
     """
-    Lex application
+    Lex application class.
     """
     def __init__(self, debug=False):
         # self.initialize_connections()
