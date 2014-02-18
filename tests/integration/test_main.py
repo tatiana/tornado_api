@@ -1,8 +1,12 @@
 import json
 
+from mock import patch
 from tornado.testing import AsyncHTTPTestCase
 
 from lex import main
+
+
+TIMEOUT = 30
 
 
 class HandlersTestCase(AsyncHTTPTestCase):
@@ -10,12 +14,15 @@ class HandlersTestCase(AsyncHTTPTestCase):
     def get_app(self):
         return main.application
 
+    # def wait(self, condition=None, timeout=None):
+    #     return super(HandlersTestCase, self).wait(None, TIMEOUT)
+
     def test_healthcheck(self):
         response = self.fetch('/healthcheck', method='GET')
         self.assertEqual(response.code, 200)
         self.assertIn('Atchim!', response.body)
 
-    def test_recommendation(self):
+    def test_recommendation_returns_200(self):
         config = {
             "userId": 1234,
             "userProvider": 2,
@@ -45,5 +52,32 @@ class HandlersTestCase(AsyncHTTPTestCase):
                 "score": 0.333
             }
         ]
-        computed = json.loads(response.body)
-        self.assertEqual(computed, expected)
+        response = json.loads(response.body)
+        self.assertEqual(response, expected)
+
+    def test_recommendation_returns_400(self):
+        config = {
+            "userId": 5678
+        }
+        response = self.fetch(
+            '/recommendation',
+            method='POST',
+            body=json.dumps(config)
+        )
+        self.assertEqual(response.code, 400)
+        response = json.loads(response.body)
+        self.assertTrue("error" in response)
+
+    @patch("lex.handlers.validate", side_effect=Exception)
+    def test_recommendation_returns_500(self, mock_validate):
+        config = {
+            "userId": 5678
+        }
+        response = self.fetch(
+            '/recommendation',
+            method='POST',
+            body=json.dumps(config)
+        )
+        self.assertEqual(response.code, 500)
+        response = json.loads(response.body)
+        self.assertTrue("error" in response)

@@ -1,6 +1,7 @@
 requests==2.2.1
 stomp.py==4.0.11
 tornado==3.2
+tornado-cors==0.3.2
 ujson==1.33
 
 --extra-index-url=http://pypi.globoi.com/

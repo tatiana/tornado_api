@@ -32,8 +32,10 @@ lint:
 	@# C0301: Line too long
 	@# R0904: Too many public methods - disabled due to Tornado's classes
 	@# W0621: Redefining name %r from outer scope (line %s) - due to main if __name__ == '__main__'
+	@# W0142: Used * or ** magic
+
 	@echo "Running pylint"
-	@pylint $(PROJECT_CODE)/$(PROJECT_NAME) --disable=C0301 --disable=R0904 --disable=C0103 --disable=W0621
+	@pylint $(PROJECT_CODE)/$(PROJECT_NAME) --disable=C0301 --disable=R0904 --disable=C0103 --disable=W0621 --disable=W0142
 
 
 unit: clean pep8 pep8_tests
