@@ -1,1 +1,1 @@
-lex: cd src; python lex/main.py
+lex: cd src; PYTHONPATH=. python lex/main.py
