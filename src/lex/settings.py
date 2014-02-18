@@ -3,4 +3,4 @@ General configuration for Lex project.
 """
 
 DEBUG = True
-SERVER_PORT = 4242
+SERVER_PORT = 8888  # PORT
