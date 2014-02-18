@@ -1,0 +1,1 @@
+lex: cd src; python lex/main.py
