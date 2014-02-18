@@ -20,14 +20,19 @@ class NewsHandler(RequestHandler):
     """
 
     def post(self):
+        #params = ujson.loads(self.request.body)
         recommendation_list = [
             {
-                "documentId": "1233",
+                "documentId": 6116038798098712381,
                 "score": 0.999
             },
             {
-                "documentId": "456",
+                "documentId": 6502978799245377158,
                 "score": 0.666
+            },
+            {
+                "documentId": 5412347350701788586,
+                "score": 0.333
             }
         ]
         self.write(ujson.dumps(recommendation_list))

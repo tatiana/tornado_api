@@ -33,12 +33,16 @@ class HandlersTestCase(AsyncHTTPTestCase):
         self.assertEqual(response.code, 200)
         expected = [
             {
-                "documentId": "1233",
+                "documentId": 6116038798098712381,
                 "score": 0.999
             },
             {
-                "documentId": "456",
+                "documentId": 6502978799245377158,
                 "score": 0.666
+            },
+            {
+                "documentId": 5412347350701788586,
+                "score": 0.333
             }
         ]
         computed = json.loads(response.body)
