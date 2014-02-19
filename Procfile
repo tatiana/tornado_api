@@ -1,1 +1,1 @@
-lex: cd src; PYTHONPATH=. python lex/main.py
+lex: make run_on_tsuru

@@ -1,50 +1,48 @@
 """
 Lex starter and main loop.
 """
-
-from argparse import ArgumentParser
-
-from tornado import web
+from tornado.web import Application, URLSpec
 from tornado.ioloop import IOLoop
 from tornado.httpserver import HTTPServer
+from tornado.log import app_log
+from tornado.options import define, options, parse_command_line
 
 from lex import settings
 from lex.handlers import HealthcheckHandler, NewsHandler
 
 
 ROUTES = [
-    web.URLSpec(r'/healthcheck/?', HealthcheckHandler),
-    web.URLSpec(r'/recommendation/?', NewsHandler),
+    URLSpec(r'/healthcheck/?', HealthcheckHandler),
+    URLSpec(r'/recommendation/?', NewsHandler),
 ]
 
 
-class Application(web.Application):
+# Options
+define("debug", default=settings.DEBUG, help="Enable or disable debug", type=bool)
+define("port", default=settings.PORT, help="Run app on the given port", type=int)
+
+
+def create_app():
     """
-    Lex application class.
+    Create Lex instance of tornado.web.Application.
     """
-    def __init__(self, debug=False):
-        # self.initialize_connections()
-        super(Application, self).__init__(ROUTES, debug=debug)
-
-    # def initialize_connections(self):
-    #     pass
+    return Application(ROUTES, **options.as_dict())
 
 
-def main(args):  # pragma: no cover
+def main():  # pragma: no cover
     """
     Run lex main loop.
     """
-    application = Application(debug=args.debug)
+    parse_command_line()
+    app_log.info("Lex is running!")
+    application = create_app()
     server = HTTPServer(application)
-    server.listen(settings.SERVER_PORT)
+    server.listen(options['port'])
     io_loop = IOLoop.instance()
     io_loop.start()
 
 
 if __name__ == '__main__':
-    parser = ArgumentParser(description=__doc__)
-    parser.add_argument('-d', '--debug', action='store_const', const=True, default=settings.DEBUG, help='debug mode')
-    args = parser.parse_args()
-    main(args)
+    main()
 else:
-    application = Application()
+    application = create_app()

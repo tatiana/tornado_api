@@ -1,9 +1,7 @@
 """
 General configuration for Lex project.
 """
+import os
 
-DEBUG = True
-
-CORS_HEADERS = 'Content-Type, Authorization'
-
-SERVER_PORT = 8888  # PORT
+DEBUG = os.environ.get('LEX_DEBUG') or True
+PORT = os.environ.get('LEX_PORT') or 8888

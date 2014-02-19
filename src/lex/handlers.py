@@ -8,7 +8,6 @@ import ujson
 from tornado.web import RequestHandler
 from tornado_cors import CorsMixin
 
-from lex import settings
 from lex.params import validate
 
 
@@ -20,9 +19,10 @@ class BaseHandler(CorsMixin, RequestHandler):
     """
 
     CORS_ORIGIN = "*"
-    CORS_HEADERS = settings.CORS_HEADERS
+    CORS_HEADERS = "Content-Type, Authorization"
 
     def _handle_request_exception(self, exception):
+        self.log_exception(*sys.exc_info())
         if hasattr(exception, "status_code"):
             status = exception.status_code
             msg = exception.message
@@ -58,15 +58,15 @@ class NewsHandler(BaseHandler):
         validate(params)
         recommendation_list = [
             {
-                "documentId": 6116038798098712381,
+                "documentId": "6116038798098712381",
                 "score": 0.999
             },
             {
-                "documentId": 6502978799245377158,
+                "documentId": "6502978799245377158",
                 "score": 0.666
             },
             {
-                "documentId": 5412347350701788586,
+                "documentId": "5412347350701788586",
                 "score": 0.333
             }
         ]

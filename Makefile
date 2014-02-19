@@ -19,13 +19,16 @@ setup:
 	@cp ./helpers/git-hooks/pre-commit ./.git/hooks/pre-commit
 	@chmod ug+x ./.git/hooks/pre-commit
 
+
 pep8:
 	@echo "Checking source-code PEP8 compliance"
 	@-pep8 $(PROJECT_CODE) --ignore=E501,E126,E127,E128
 
+
 pep8_tests:
 	@echo "Checking tests code PEP8 compliance"
 	@-pep8 $(PROJECT_TEST) --ignore=E501,E126,E127,E128
+
 
 lint:
 	@# C0103: Invalid name - disabled because it expects any variable outside a class or function to be a constant
@@ -38,17 +41,26 @@ lint:
 	@pylint $(PROJECT_CODE)/$(PROJECT_NAME) --disable=C0301 --disable=R0904 --disable=C0103 --disable=W0621 --disable=W0142
 
 
+style: pep8 pep8_tests lint
+
+
 unit: clean pep8 pep8_tests
 	@echo "Running pep8 and unit tests..."
 	@nosetests -s  --cover-branches --cover-erase --with-coverage --cover-inclusive --cover-package=$(PROJECT_NAME) --tests=$(PROJECT_TEST)/unit --with-xunit
+
 
 integration: clean pep8 pep8_tests
 	@echo "Running pep8 and integration tests..."
 	@nosetests -s  --cover-branches --cover-erase --with-coverage --cover-inclusive --cover-package=$(PROJECT_NAME) --tests=$(PROJECT_TEST)/integration --with-xunit
 
+
 tests: clean pep8 pep8_tests lint
 	@echo "Running pep8, lint, unit and integration tests..."
 	@nosetests -s  --cover-branches --cover-erase --with-coverage --cover-inclusive --cover-package=$(PROJECT_NAME) --tests=$(PROJECT_TEST) --with-xunit
 
+
 run:
-	@cd $(PROJECT_CODE); python $(PROJECT_NAME)/main.py
+	@cd $(PROJECT_CODE); python $(PROJECT_NAME)/main.py --log_file_prefix=/tmp/logs/lex.log --log_to_stderr=true
+
+run_on_tsuru: # Called by Procfile
+	@cd $(PROJECT_CODE); PYTHONPATH=. python $(PROJECT_NAME)/main.py --log_file_prefix=/tmp/logs/lex.log --log_to_stderr=true

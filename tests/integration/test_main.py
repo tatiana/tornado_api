@@ -26,7 +26,7 @@ class HandlersTestCase(AsyncHTTPTestCase):
         config = {
             "userId": 1234,
             "userProvider": 2,
-            "excludeIds": [123, 5235, 123],
+            "excludeIds": ["123", "5235", "123"],
             "dateStart": "1997-07-16T19:20:30.45+01:00",
             "dateEnd": "1997-07-16T19:20:30.45+01:00",
             "product": "mobile",
@@ -40,15 +40,15 @@ class HandlersTestCase(AsyncHTTPTestCase):
         self.assertEqual(response.code, 200)
         expected = [
             {
-                "documentId": 6116038798098712381,
+                "documentId": "6116038798098712381",
                 "score": 0.999
             },
             {
-                "documentId": 6502978799245377158,
+                "documentId": "6502978799245377158",
                 "score": 0.666
             },
             {
-                "documentId": 5412347350701788586,
+                "documentId": "5412347350701788586",
                 "score": 0.333
             }
         ]
