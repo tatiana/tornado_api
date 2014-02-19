@@ -15,6 +15,7 @@ setup:
 	@echo "Installing dependencies..."
 	@pip install -r $(PROJECT_HOME)/requirements.txt
 	@pip install -r $(PROJECT_HOME)/requirements_test.txt
+	@pip install -r $(PROJECT_HOME)/requirements_doc.txt
 	@echo "Adding git hooks..."
 	@cp ./helpers/git-hooks/pre-commit ./.git/hooks/pre-commit
 	@chmod ug+x ./.git/hooks/pre-commit
@@ -53,14 +54,20 @@ integration: clean pep8 pep8_tests
 	@echo "Running pep8 and integration tests..."
 	@nosetests -s  --cover-branches --cover-erase --with-coverage --cover-inclusive --cover-package=$(PROJECT_NAME) --tests=$(PROJECT_TEST)/integration --with-xunit
 
+procfile:
+	@echo "Checking if Procfile is valid"
+	@honcho check
+	@printf "\n"
 
-tests: clean pep8 pep8_tests lint
-	@echo "Running pep8, lint, unit and integration tests..."
+
+tests: clean pep8 pep8_tests lint procfile
+	@echo "Running unit and integration tests..."
 	@nosetests -s  --cover-branches --cover-erase --with-coverage --cover-inclusive --cover-package=$(PROJECT_NAME) --tests=$(PROJECT_TEST) --with-xunit
 
 
 run:
 	@cd $(PROJECT_CODE); python $(PROJECT_NAME)/main.py --log_file_prefix=/tmp/logs/lex.log --log_to_stderr=true
+
 
 run_on_tsuru: # Called by Procfile
 	@cd $(PROJECT_CODE); PYTHONPATH=. python $(PROJECT_NAME)/main.py --log_file_prefix=/tmp/logs/lex.log --log_to_stderr=true
