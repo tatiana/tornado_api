@@ -8,6 +8,7 @@ import ujson
 from tornado.web import RequestHandler
 from tornado_cors import CorsMixin
 
+import lex
 from lex.params import validate
 
 
@@ -46,6 +47,24 @@ class HealthcheckHandler(RequestHandler):
 
     def get(self):
         self.write("Atchim!")
+
+
+class RootHandler(RequestHandler):
+    """
+    Return "Atchim!" if service is running.
+    """
+
+    def get(self):
+        self.write("My name is Lex. Lex Luthor.")
+
+
+class VersionHandler(RequestHandler):
+    """
+    Return "Atchim!" if service is running.
+    """
+
+    def get(self):
+        self.write(lex.__version__)
 
 
 class NewsHandler(BaseHandler):

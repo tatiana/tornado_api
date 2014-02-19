@@ -2,6 +2,7 @@ CWD="`pwd`"
 PROJECT_NAME = lex
 PROJECT_HOME ?= $(CWD)
 PROJECT_CODE =$(PROJECT_HOME)/src
+PROJECT_DOC =$(PROJECT_HOME)/docs
 PROJECT_TEST =$(PROJECT_HOME)/tests
 NEW_PYTHONPATH=$(PROJECT_CODE):$(PYTHONPATH)
 
@@ -20,6 +21,9 @@ setup:
 	@cp ./helpers/git-hooks/pre-commit ./.git/hooks/pre-commit
 	@chmod ug+x ./.git/hooks/pre-commit
 
+
+doc:
+	@cd PROJECT_DOC; make html
 
 pep8:
 	@echo "Checking source-code PEP8 compliance"

@@ -22,6 +22,16 @@ class HandlersTestCase(AsyncHTTPTestCase):
         self.assertEqual(response.code, 200)
         self.assertIn('Atchim!', response.body)
 
+    def test_version(self):
+        response = self.fetch('/version', method='GET')
+        self.assertEqual(response.code, 200)
+        self.assertIn('0.0.1', response.body)
+
+    def test_root(self):
+        response = self.fetch('/', method='GET')
+        self.assertEqual(response.code, 200)
+        self.assertIn('My name is Lex. Lex Luthor.', response.body)
+
     def test_recommendation_returns_200(self):
         config = {
             "userId": 1234,

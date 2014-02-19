@@ -8,11 +8,13 @@ from tornado.log import app_log
 from tornado.options import define, options, parse_command_line
 
 from lex import settings
-from lex.handlers import HealthcheckHandler, NewsHandler
+from lex.handlers import HealthcheckHandler, NewsHandler, RootHandler, VersionHandler
 
 
 ROUTES = [
+    URLSpec(r'/?', RootHandler),
     URLSpec(r'/healthcheck/?', HealthcheckHandler),
+    URLSpec(r'/version/?', VersionHandler),
     URLSpec(r'/recommendation/?', NewsHandler),
 ]
 
