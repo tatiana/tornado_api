@@ -82,5 +82,5 @@ run:
 run_on_tsuru: # Called by Procfile
 	@echo "********************************* xubiru *********************************"
 	@
-	@cd $(PROJECT_CODE); echo `pwd`; PYTHONPATH=. python $(PROJECT_NAME)/main.py --log_to_stderr=true --template_path=../docs/build/html --static_path=../docs/build/html/_static
+	@cd $(PROJECT_CODE); PYTHONPATH=. python $(PROJECT_NAME)/main.py --log_to_stderr=true --template_path=$(PROJECT_HTML) --static_path=$(PROJECT_STATIC)
  
