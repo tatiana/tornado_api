@@ -7,7 +7,7 @@ PROJECT_CODE =$(PROJECT_HOME)/src
 
 PROJECT_DOC =$(PROJECT_HOME)/docs
 PROJECT_HTML =$(PROJECT_DOC)/build/html
-PROJECT_STATIC =$(PROJECT_HTML)/_static
+PROJECT_STATIC =$(PROJECT_HTML)/_static	
 
 PROJECT_TEST =$(PROJECT_HOME)/tests
 
@@ -80,7 +80,8 @@ run:
 
 
 run_on_tsuru: # Called by Procfile
-	@cd $(PROJECT_CODE); PYTHONPATH=. python $(PROJECT_NAME)/main.py --log_file_prefix=/tmp/logs/lex.log --log_to_stderr=true --template_path=docs/build/html --static_path=docs/build/html/_static
+	@cd $(PROJECT_CODE); PYTHONPATH=. python $(PROJECT_NAME)/main.py --log_to_stderr=true --template_path=../docs/build/html --static_path=../docs/build/html/_static
 
 deploy:
 
+ 
