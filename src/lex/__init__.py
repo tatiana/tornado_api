@@ -1,4 +1,6 @@
 """
 API for recommending news using content-based algorithms.
 """
-__version__ = "0.0.1"
+from lex.utils import git
+
+__version__ = git.get_code_version()

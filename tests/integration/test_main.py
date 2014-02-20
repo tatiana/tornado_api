@@ -25,7 +25,8 @@ class HandlersTestCase(AsyncHTTPTestCase):
     def test_version(self):
         response = self.fetch('/version', method='GET')
         self.assertEqual(response.code, 200)
-        self.assertEqual('0.0.1', response.body)
+        values = response.body.split("|")
+        self.assertEqual(len(values), 2)
 
     def test_root(self):
         response = self.fetch('/', method='GET')
