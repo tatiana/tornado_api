@@ -31,8 +31,7 @@ def create_app():
         URLSpec(r'/version/?', VersionHandler),
         URLSpec(r'/recommendation/?', NewsHandler),
         URLSpec(r'/docs/?(.*)', StaticFileHandler, {'path': options["template_path"], 'default_filename': 'index.html'}),
-        URLSpec(r'/_static/?(.*)', StaticFileHandler, {'path': options["static_path"], 'default_filename': 'favicon.ico'}),
-        URLSpec(r'/favicon.ico', StaticFileHandler, {'path': options["static_path"], 'default_filename': 'favicon.ico'})
+        URLSpec(r'/_static/?(.*)', StaticFileHandler, {'path': options["static_path"], 'default_filename': 'favicon.ico'})
     ]
     return Application(routes, **options.as_dict())
 
