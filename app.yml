@@ -1,3 +1,4 @@
 hooks:
   build:
+    - mkdir /tmp/logs
     - make doc
