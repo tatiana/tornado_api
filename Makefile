@@ -1,9 +1,16 @@
-CWD="`pwd`"
+CWD = $(CURDIR)
+
 PROJECT_NAME = lex
-PROJECT_HOME ?= $(CWD)
+PROJECT_HOME =$(CWD)
+
 PROJECT_CODE =$(PROJECT_HOME)/src
+
 PROJECT_DOC =$(PROJECT_HOME)/docs
+PROJECT_HTML =$(PROJECT_DOC)/build/html
+PROJECT_STATIC =$(PROJECT_HTML)/_static
+
 PROJECT_TEST =$(PROJECT_HOME)/tests
+
 NEW_PYTHONPATH=$(PROJECT_CODE):$(PYTHONPATH)
 
 
@@ -70,7 +77,7 @@ tests: clean pep8 pep8_tests lint procfile
 
 
 run:
-	@cd $(PROJECT_CODE); python $(PROJECT_NAME)/main.py --log_file_prefix=/tmp/logs/lex.log --log_to_stderr=true
+	@cd $(PROJECT_CODE); python $(PROJECT_NAME)/main.py --log_file_prefix=/tmp/logs/lex.log --log_to_stderr=true --template_path=$(PROJECT_HTML) --static_path=$(PROJECT_STATIC)
 
 
 run_on_tsuru: # Called by Procfile

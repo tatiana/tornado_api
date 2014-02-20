@@ -1,7 +1,7 @@
 """
 Lex starter and main loop.
 """
-from tornado.web import Application, URLSpec
+from tornado.web import Application, StaticFileHandler, URLSpec
 from tornado.ioloop import IOLoop
 from tornado.httpserver import HTTPServer
 from tornado.log import app_log
@@ -16,12 +16,19 @@ ROUTES = [
     URLSpec(r'/healthcheck/?', HealthcheckHandler),
     URLSpec(r'/version/?', VersionHandler),
     URLSpec(r'/recommendation/?', NewsHandler),
+    URLSpec(r'/docs/?(.*)', StaticFileHandler, {'path': settings.HTML_PATH, 'default_filename': 'index.html'}),
+    URLSpec(r'/_static/?(.*)', StaticFileHandler, {'path': settings.STATIC_PATH})
 ]
 
 
 # Options
 define("debug", default=settings.DEBUG, help="Enable or disable debug", type=bool)
 define("port", default=settings.PORT, help="Run app on the given port", type=int)
+
+# Temporary routes for serving HTML while Tsuru doesn't support a better way
+# to serve static files. Eg. Nginx or other.
+define("template_path", default=settings.HTML_PATH, help="Path where HTML doc files are", type=str)
+define("static_path", default=settings.STATIC_PATH, help="Path where doc static files are ", type=str)
 
 
 def create_app():
