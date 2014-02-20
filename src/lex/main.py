@@ -21,21 +21,19 @@ define("template_path", default=settings.HTML_PATH, help="Path where HTML doc fi
 define("static_path", default=settings.STATIC_PATH, help="Path where doc static files are ", type=str)
 
 
-ROUTES = [
-    URLSpec(r'/?', RootHandler),
-    URLSpec(r'/healthcheck/?', HealthcheckHandler),
-    URLSpec(r'/version/?', VersionHandler),
-    URLSpec(r'/recommendation/?', NewsHandler),
-    URLSpec(r'/docs/?(.*)', StaticFileHandler, {'path': settings.HTML_PATH, 'default_filename': 'index.html'}),
-    URLSpec(r'/_static/?(.*)', StaticFileHandler, {'path': settings.STATIC_PATH})
-]
-
-
 def create_app():
     """
     Create Lex instance of tornado.web.Application.
     """
-    return Application(ROUTES, **options.as_dict())
+    routes = [
+        URLSpec(r'/?', RootHandler),
+        URLSpec(r'/healthcheck/?', HealthcheckHandler),
+        URLSpec(r'/version/?', VersionHandler),
+        URLSpec(r'/recommendation/?', NewsHandler),
+        URLSpec(r'/docs/?(.*)', StaticFileHandler, {'path': options["template_path"], 'default_filename': 'index.html'}),
+        URLSpec(r'/_static/?(.*)', StaticFileHandler, {'path': options["static_path"]})
+    ]
+    return Application(routes, **options.as_dict())
 
 
 def main():  # pragma: no cover
