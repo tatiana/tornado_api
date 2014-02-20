@@ -23,7 +23,6 @@ setup:
 	@echo "Installing dependencies..."
 	@pip install -r $(PROJECT_HOME)/requirements.txt
 	@pip install -r $(PROJECT_HOME)/requirements_test.txt
-	@pip install -r $(PROJECT_HOME)/requirements_doc.txt
 	@echo "Adding git hooks..."
 	@cp ./helpers/git-hooks/pre-commit ./.git/hooks/pre-commit
 	@chmod ug+x ./.git/hooks/pre-commit
@@ -82,3 +81,6 @@ run:
 
 run_on_tsuru: # Called by Procfile
 	@cd $(PROJECT_CODE); PYTHONPATH=. python $(PROJECT_NAME)/main.py --log_file_prefix=/tmp/logs/lex.log --log_to_stderr=true --template_path=docs/build/html --static_path=docs/build/html/_static
+
+deploy:
+
