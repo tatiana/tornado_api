@@ -30,7 +30,7 @@ setup:
 
 
 doc:
-	@cd PROJECT_DOC; make html
+	@cd $(PROJECT_DOC); make html
 
 pep8:
 	@echo "Checking source-code PEP8 compliance"
@@ -81,4 +81,4 @@ run:
 
 
 run_on_tsuru: # Called by Procfile
-	@cd $(PROJECT_CODE); PYTHONPATH=. python $(PROJECT_NAME)/main.py --log_file_prefix=/tmp/logs/lex.log --log_to_stderr=true
+	@cd $(PROJECT_CODE); PYTHONPATH=. python $(PROJECT_NAME)/main.py --log_file_prefix=/tmp/logs/lex.log --log_to_stderr=true --template_path=docs/build/html --static_path=docs/build/html/_static

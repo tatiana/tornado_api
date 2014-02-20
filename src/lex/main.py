@@ -11,16 +11,6 @@ from lex import settings
 from lex.handlers import HealthcheckHandler, NewsHandler, RootHandler, VersionHandler
 
 
-ROUTES = [
-    URLSpec(r'/?', RootHandler),
-    URLSpec(r'/healthcheck/?', HealthcheckHandler),
-    URLSpec(r'/version/?', VersionHandler),
-    URLSpec(r'/recommendation/?', NewsHandler),
-    URLSpec(r'/docs/?(.*)', StaticFileHandler, {'path': settings.HTML_PATH, 'default_filename': 'index.html'}),
-    URLSpec(r'/_static/?(.*)', StaticFileHandler, {'path': settings.STATIC_PATH})
-]
-
-
 # Options
 define("debug", default=settings.DEBUG, help="Enable or disable debug", type=bool)
 define("port", default=settings.PORT, help="Run app on the given port", type=int)
@@ -29,6 +19,16 @@ define("port", default=settings.PORT, help="Run app on the given port", type=int
 # to serve static files. Eg. Nginx or other.
 define("template_path", default=settings.HTML_PATH, help="Path where HTML doc files are", type=str)
 define("static_path", default=settings.STATIC_PATH, help="Path where doc static files are ", type=str)
+
+
+ROUTES = [
+    URLSpec(r'/?', RootHandler),
+    URLSpec(r'/healthcheck/?', HealthcheckHandler),
+    URLSpec(r'/version/?', VersionHandler),
+    URLSpec(r'/recommendation/?', NewsHandler),
+    URLSpec(r'/docs/?(.*)', StaticFileHandler, {'path': settings.HTML_PATH, 'default_filename': 'index.html'}),
+    URLSpec(r'/_static/?(.*)', StaticFileHandler, {'path': settings.STATIC_PATH})
+]
 
 
 def create_app():
