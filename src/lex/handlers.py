@@ -55,7 +55,7 @@ class RootHandler(RequestHandler):
     """
 
     def get(self):
-        self.write("My name is Lex. Lex Luthor.")
+        self.write('My name is Lex. Lex Luthor.<br>Learn how to use me by reading the <a href="/docs/">docs</a>.')
 
 
 class VersionHandler(RequestHandler):

@@ -31,7 +31,8 @@ class HandlersTestCase(AsyncHTTPTestCase):
     def test_root(self):
         response = self.fetch('/', method='GET')
         self.assertEqual(response.code, 200)
-        self.assertEqual('My name is Lex. Lex Luthor.', response.body)
+        expected = 'My name is Lex. Lex Luthor.<br>Learn how to use me by reading the <a href="/docs/">docs</a>.'
+        self.assertEqual(response.body, expected)
 
     def test_docs(self):
         response = self.fetch('/docs/', method='GET')
