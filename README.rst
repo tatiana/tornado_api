@@ -21,7 +21,7 @@ Success example
 
 ::
 
-    $ curl -i -X POST "http://lex.cloud.globoi.com/recommendation" -d  '{"userId": 1234, "userProvider": 2, "excludeIds": [123,5235,123], "dateStart": "1997-07-16T19:20:30.45+01:00", "dateEnd": "1997-07-16T19:20:30.45+01:00", "product":  "mobile", "limit": 2}'
+    $ curl -i -X POST "http://lex.cloud.tsuru.io//recommendation" -d  '{"userId": 1234, "userProvider": 2, "excludeIds": [123,5235,123], "dateStart": "1997-07-16T19:20:30.45+01:00", "dateEnd": "1997-07-16T19:20:30.45+01:00", "product":  "mobile", "limit": 2}'
 
     HTTP/1.1 200 OK
     date: Wed, 19 Feb 2014 13:17:01 GMT
@@ -39,7 +39,7 @@ Failure example
 
 ::
 
-    $ curl -i -X POST "http://lex.cloud.globoi.com/recommendation" -d "{}"
+    $ curl -i -X POST "http://lex.cloud.tsuru.io//recommendation" -d "{}"
 
     HTTP/1.1 400 Bad Request
     date: Wed, 19 Feb 2014 13:16:05 GMT
@@ -57,7 +57,7 @@ Healthcheck
 
 ::
 
-    $ curl -i -X GET "http://lex.cloud.globoi.com/healthcheck"
+    $ curl -i -X GET "http://lex.cloud.tsuru.io//healthcheck"
 
     HTTP/1.1 200 OK
     date: Wed, 19 Feb 2014 21:17:25 GMT
@@ -75,7 +75,7 @@ Version
 
 ::
 
-    $ curl -i -X GET "http://lex.cloud.globoi.com/version"
+    $ curl -i -X GET "http://lex.cloud.tsuru.io//version"
 
     HTTP/1.1 200 OK
     date: Wed, 19 Feb 2014 21:17:25 GMT

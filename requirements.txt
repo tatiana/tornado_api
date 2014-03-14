@@ -5,6 +5,3 @@ tornado-cors==0.3.2
 ujson==1.33
 
 -r requirements_doc.txt
-
---extra-index-url=http://pypi.globoi.com/
---extra-index-url=http://pypi.globoi.com/proxy
